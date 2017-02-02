@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    MyDraw draw;
+    SolarSystemSurface draw;
+    //MyDraw draw;
     boolean Interferes (int x1, int y1, double r1, int x2, int y2, double r2)
     {
         return false;
@@ -30,32 +31,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        draw = (MyDraw) findViewById(R.id.view);
+        draw = (SolarSystemSurface) findViewById(R.id.view);
+        //draw = (MyDraw) findViewById(R.id.view);
+        /*
         draw.invalidate();
         draw.angle += 1;
-
+        */
 
         //setContentView(new MyDraw(this));
         //setContentView(new Card(this, 100, 100, Color.RED, 1, 3, true));
 
-        /*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
     }
 
     public void onClick(View v)
     {
-      MyTask mt = new MyTask();  mt.execute(); }
+        draw.dt.runFlag = false;
+      //MyTask mt = new MyTask();  mt.execute();
+      //
+      //
+      }
 
     class MyTask extends AsyncTask<Void, Void, Void>
     {
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             while (seconds < 1000) {
                 // ждем 1 секунду
                 try {
-                    TimeUnit.MILLISECONDS.sleep(20);
+                    TimeUnit.MILLISECONDS.sleep(2);
                 } catch (InterruptedException e) {}
                 seconds++;
                 publishProgress(); // вызов этой функции обеспечит вызом onProgressUpdate
@@ -75,14 +70,23 @@ public class MainActivity extends AppCompatActivity {
         }
         protected void onProgressUpdate(Void... progress)
         {
+            /*
             draw.x += 10;
             draw.earth.angle += .05;
-            draw.moon.angle += 0.05*Math.PI;
+            draw.moon.angle += 0.025;
             draw.moon.color = Color.RED;
             draw.shots.add(new Point(draw.moon));
             //moon = new Planet(6, 50, 0, moon.angle, Color.GRAY, earth);
             Log.d("my", "size = " + draw.shots.size());
             draw.invalidate();
+            */
+            /*
+            for (Bubble b : draw.bubbles)
+            {
+                b.step();
+            }
+            draw.invalidate();
+            */
         }
 
     }

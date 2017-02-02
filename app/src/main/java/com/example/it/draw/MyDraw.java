@@ -19,10 +19,12 @@ import java.util.Random;
 public class MyDraw extends View
 {
 
+
     Sun sun = new Sun(100, Color.YELLOW, 200, 200/2);
     Planet earth =  new Planet(20, 300, 2, 0, Color.GREEN, sun);
     Planet moon = new Planet(6, 70, 2, 0, Color.GRAY, earth);
     ArrayList<Point> shots = new ArrayList<>();
+    ArrayList<Bubble> bubbles = new ArrayList<>();
 
     float x = 0, y = 0; // координаты центра круга
     float angle = getMeasuredHeight();
@@ -30,6 +32,9 @@ public class MyDraw extends View
     public MyDraw(Context context, AttributeSet attributeSet)
     {
         super(context, attributeSet);
+        for (int i = 0; i < 100; i++) {
+            bubbles.add(new Bubble());
+        }
 
     }
 
@@ -37,14 +42,26 @@ public class MyDraw extends View
     protected void onDraw(Canvas canvas) {
         //canvas.drawColor(Color.GRAY);
         //sun = new Sun(200, Color.YELLOW, canvas.getWidth()/2, canvas.getHeight()/2);
+        Paint p = new Paint();
+        Random r = new Random();
+        canvas.drawColor(Color.rgb(0,0,100));
+
+        //canvas.drawCircle(r.nextFloat()*canvas.getWidth(),r.nextFloat()*canvas.getHeight(), 50, p);
+        /*
         sun.Draw(canvas);
         earth.Draw(canvas);
         moon.Draw(canvas);
         Log.d("my", "size = " + shots.size());
-        for (Point p : shots)
+        */
+        float center_x = canvas.getWidth()/2;
+        float center_y = canvas.getHeight()/2;
+
+        p.setColor(Color.WHITE);
+        for (Bubble b : bubbles)
         {
-            canvas.drawCircle(p.x, p.y, 5, new Paint());
+            canvas.drawCircle(b.getX()+ center_x, b.getY() + center_y, 5, p);
         }
+
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -55,6 +72,7 @@ public class MyDraw extends View
         invalidate();
         return true;
     }
+
 
 }
 
